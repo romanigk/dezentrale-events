@@ -1,0 +1,1 @@
+rootProject.name = "space.dezentrale.dezentrale-events"
