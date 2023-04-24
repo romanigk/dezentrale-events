@@ -13,3 +13,15 @@ Wir möchten eine möglichst hohe Abdeckung mit automatischen Tests haben, Stich
 - Security per JSON Web Token (JWT), bespw. Keycloak
 - Kotlin fürs Backend
 - ein reaktives Frontend ist optional
+
+## PostgreSQL in Docker
+
+Bevor Ihr dieses oder ein anderes Projekt in Docker ausführt, empfehle ich [Run the Docker daemon as a non-root user (Rootless mode)](https://docs.docker.com/engine/security/rootless/) zu lesen. Das funktioniert mittlerweile super, mit den zur Verfügung gestellten Skripten. Hintergrund ist, dass unter Windows oder Mac-OS Docker immer in einer VM ausgeführt wird, was unter Unix-artigen Betriebssystemen nicht der Fall ist. Bspw. schreibt die postgres-DB Daten unter `.tmp/db` mit root-Rechten auf die Festplatte, was er im Rootless-Scenario als der User macht, mit dem man angemeldet ist.
+
+Um das aktuelle Projekt auszuführen und lokal auszuprobieren, einfach:
+
+```shell
+docker compose up -d
+```
+
+aufrufen.
