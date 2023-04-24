@@ -1,16 +1,16 @@
 package space.dezentrale.plugins
 
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import kotlinx.coroutines.*
-import java.sql.*
-import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import java.sql.Connection
+import java.sql.DriverManager
 
 fun Application.configureDatabases() {
-    
-    val dbConnection: Connection = connectToPostgres(embedded = true)
+
+    val dbConnection: Connection = connectToPostgres()
     val cityService = CityService(dbConnection)
     routing {
         // Create city
@@ -58,22 +58,14 @@ fun Application.configureDatabases() {
  * Then, you would be able to edit your url,  which is usually "jdbc:postgresql://host:port/database", as well as
  * user and password values.
  *
- *
- * @param embedded -- if [true] defaults to an embedded database for tests that runs locally in the same process.
- * In this case you don't have to provide any parameters in configuration file, and you don't have to run a process.
- *
  * @return [Connection] that represent connection to the database. Please, don't forget to close this connection when
  * your application shuts down by calling [Connection.close]
  * */
-fun Application.connectToPostgres(embedded: Boolean): Connection {
+fun Application.connectToPostgres(): Connection {
     Class.forName("org.postgresql.Driver")
-    if (embedded) {
-        return DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "root", "")
-    } else {
-        val url = environment.config.property("postgres.url").getString()
-        val user = environment.config.property("postgres.user").getString()
-        val password = environment.config.property("postgres.password").getString()
+    val url = environment.config.property("postgres.url").getString()
+    val user = environment.config.property("postgres.user").getString()
+    val password = environment.config.property("postgres.password").getString()
 
-        return DriverManager.getConnection(url, user, password)
-    }
+    return DriverManager.getConnection(url, user, password)
 }
