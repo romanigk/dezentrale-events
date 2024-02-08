@@ -1,0 +1,82 @@
+openapi: 3.0.3
+
+info:
+  title: dezentrale events
+  description: API zum Verwalten von Events in der dezentrale in Leipzig
+  version: 0.0.1
+  contact:
+    name: p1ng0ut
+    email: p1ng0ut@mailbox.org
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: http://localhost:8080
+    description: dezentrale web server for serving events
+    variables:
+      web_server:
+        default: localhost:8080
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: The HTTP code which led to this error
+        title:
+          type: string
+          description: A short title of the problem in kebab-case
+          example: not-found
+        description:
+          type: string
+          description: A description of the error and possible suggestions for solutions
+          example: >-
+            An event with the passed ID does not exist. Maybe you have made a mistake?
+    Event:
+      type: object
+      description: an event which taking place on a location at a defined time slot.
+      required:
+        - startTime
+        - location
+        - typeOfEvent
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: "2024-12-27T10:00:00"
+        endTime:
+          type: string
+          format: date-time
+          example: "2024-12-30T13:37:00"
+        location:
+          type: string
+          description: can be either an web address or an event location with an address
+          example: dezentrale Leipzig, Dreilindenstraße 19 (Hinterhaus), 04177 Leipzig, Deutschland
+        typeOfEvent:
+          type: string
+          enum:
+            - ONLINE
+            - ONSITE
+            - HYBRID
+
+paths:
+  /events:
+    get:
+      summary: Get all events
+      operationId: getAllEvents
+      tags:
+        - events
+        - get_all
+      description: Return all events matching the passed filter criteria
+      responses:
+        '200':
+          description: list of all events currently stored in the data base
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+
