@@ -1,18 +1,18 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
-val postgresVersion : String by project
-val h2Version : String by project
+val postgresVersion: String by project
+val h2Version: String by project
 val hikaricpVersion: String by project
 val ehcacheVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
-    id("io.ktor.plugin") version "2.3.2"
+    id("io.ktor.plugin") version "2.3.8"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
 }
 
-group = "space.dezentrale"
+group = "space.dezentrale.prgrnd"
 version = "0.0.1"
 application {
     mainClass.set("space.dezentrale.ApplicationKt")
@@ -42,7 +42,7 @@ dependencies {
 
 ktor {
     docker {
-        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
+         jreVersion.set(JavaVersion.VERSION_17)
         externalRegistry.set(
             io.ktor.plugin.features.DockerImageRegistry.dockerHub(
                 appName = provider { "dezentrale-events" },
