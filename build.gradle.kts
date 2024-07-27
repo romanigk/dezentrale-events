@@ -60,7 +60,7 @@ dependencies {
 
 ktor {
     docker {
-        jreVersion.set(JavaVersion.VERSION_17)
+        jreVersion.set(JavaVersion.VERSION_21)
         externalRegistry.set(
             DockerImageRegistry.dockerHub(
                 appName = provider { "dezentrale-events" },
