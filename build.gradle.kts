@@ -15,7 +15,7 @@ plugins {
     kotlin("jvm") version "2.1.20"
     id("io.ktor.plugin") version "3.1.2"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
-    id("org.openapi.generator") version "7.12.0"
+    id("org.openapi.generator") version "7.13.0"
 }
 
 group = "space.dezentrale.prgrnd"
