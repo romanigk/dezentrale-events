@@ -12,7 +12,7 @@ val exposedVersion: String by project
 val dropwizardMetricsCore: String by project
 
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.1.21"
     id("io.ktor.plugin") version "3.1.3"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
     id("org.openapi.generator") version "7.13.0"
